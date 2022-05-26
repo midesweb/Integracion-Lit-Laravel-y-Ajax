@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/api/companies', [CompanyController::class, 'getAll']);
+Route::post('/api/companies', [CompanyController::class, 'store']);

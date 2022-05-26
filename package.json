@@ -16,6 +16,8 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "@dile/dile-input": "^1.1.0",
+        "@dile/dile-modal": "^1.4.2",
         "@dile/dile-toast": "^1.1.1",
         "eit-info-overlay": "^0.0.2"
     }
