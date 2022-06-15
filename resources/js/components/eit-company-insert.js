@@ -47,7 +47,7 @@ export class EitCompanyInsert extends LitElement {
     }
 
     ajaxSuccessPost(e) {
-        this.insertForm.clear()
+        this.insertForm.clearData()
         this.dispatchEvent(new CustomEvent('eit-company-insert-success', {
             detail: e.detail
         }));

@@ -56,7 +56,7 @@ export class EitCompanyEdit extends LitElement {
     }
 
     ajaxSuccessPut(e) {
-        this.elform.clear();
+        this.elform.clearData();
         this.elmodal.close();
     }
 }

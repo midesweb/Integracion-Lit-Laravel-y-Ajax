@@ -1,13 +1,13 @@
 import { LitElement, html, css } from 'lit';
 import '@dile/dile-select/dile-select';
 import '@dile/dile-input/dile-input';
+import { DileFormMixin } from '@dile/dile-form-mixin';
 
-export class EitCompanyForm extends LitElement {
+export class EitCompanyForm extends DileFormMixin(LitElement) {
     static styles = [
         css`
             :host {
                 display: block;
-                --dile-input-background-color: #cef;
             }
         `
     ];
@@ -27,27 +27,28 @@ export class EitCompanyForm extends LitElement {
         `;
     }
 
-    getData() {
-        const name = this.shadowRoot.getElementById('name').value;
-        const vat_number = this.shadowRoot.getElementById('vat_number').value;
-        const address = this.shadowRoot.getElementById('address').value;
-        return {
-            name,
-            vat_number,
-            address
-        }
-    }
+    // getData() {
+    //     const data = {};
+    //     this.shadowRoot.querySelectorAll('[name]').forEach(element => {
+    //         data[element.getAttribute('name')] = element.value;
+    //     });
+    //     return data;
+    // }
 
-    clear() {
-        this.shadowRoot.querySelectorAll('dile-input').forEach(input => {
-            input.value = '';
-        });
-    }
+    // clearData() {
+    //     this.shadowRoot.querySelectorAll('[name]').forEach(element => {
+    //         if(typeof element.clear === 'function') {
+    //             element.clear();
+    //         } else {
+    //             element.value = '';
+    //         }
+    //     });
+    // }
 
-    setData(data) {
-        this.shadowRoot.querySelectorAll('dile-input').forEach(input => {
-            input.value = data[input.name];
-        });
-    }
+    // setData(data) {
+    //     this.shadowRoot.querySelectorAll('[name]').forEach(element => {
+    //         element.value = data[element.name];
+    //     });
+    // }
 }
 customElements.define('eit-company-form', EitCompanyForm);

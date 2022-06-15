@@ -26,6 +26,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->vat_number = $request->vat_number;
         $company->address = $request->address;
+        $company->type = $request->type;
         $company->save();
         
         return $this->sendSuccess('Empresa creada con éxito');
@@ -36,6 +37,7 @@ class CompanyController extends Controller
             'name' => ['required', 'string', 'max:250'],
             'vat_number' => ['required', 'string', 'max:250'],
             'address' => ['required', 'string', 'max:250'],
+            'type' => ['required'],
         ];
     }
 
@@ -49,6 +51,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->vat_number = $request->vat_number;
         $company->address = $request->address;
+        $company->type = $request->type;
         $company->save();
         
         return $this->sendSuccess('Empresa actualizada con éxito');

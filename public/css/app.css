@@ -1,6 +1,13 @@
 body {
     padding: 1rem;
+    --dile-input-background-color: #cef;
+    --dile-input-border-radius: 0;
+    --dile-input-border-color: #59c;
+    --dile-input-border-width: 3px;
+    --dile-input-label-color: #303030;
 }
 h1 {
     margin-top: 0;
 }
+
+
