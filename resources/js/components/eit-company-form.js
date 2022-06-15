@@ -19,6 +19,7 @@ export class EitCompanyForm extends DileFormMixin(LitElement) {
             <dile-input label="Dirección" name="address" id="address"></dile-input>
             <dile-select name="type" label="Tipo de empresa">
                 <select slot="select">
+                    <option value="">Selecciona un tipo de compañía</option>
                     <option value="provider">Proveedor</option>
                     <option value="customer">Cliente</option>
                     <option value="affiliate">Afiliado</option>
