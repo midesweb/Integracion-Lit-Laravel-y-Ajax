@@ -38,4 +38,29 @@ class CompanyController extends Controller
             'address' => ['required', 'string', 'max:250'],
         ];
     }
+
+    public function update(Request $request, $id) {
+        $validator = Validator::make($request->all(), $this->getCompanyValidationRules());
+        if($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $company = Company::find($id);
+        $company->name = $request->name;
+        $company->vat_number = $request->vat_number;
+        $company->address = $request->address;
+        $company->save();
+        
+        return $this->sendSuccess('Empresa actualizada con éxito');
+    }
+
+    public function delete($id) {
+        $company = Company::find($id);
+        if($company) {
+            $company->delete();
+            return $this->sendSuccess('Empresa eliminada con éxito');
+        }
+        return $this->sendError('Empresa no encontrada');
+    }
+
 }

@@ -1,8 +1,10 @@
 import { LitElement, html, css } from 'lit';
-import '@dile/dile-input/dile-input'
 import '@dile/dile-modal/dile-modal';
 import './eit-company-element';
 import './eit-company-edit';
+import './eit-company-form';
+import './eit-company-insert';
+import './eit-company-delete';
 
 export class EitCompanies extends LitElement {
     static styles = [
@@ -10,9 +12,7 @@ export class EitCompanies extends LitElement {
             :host {
                 display: block;
             }
-            section {
-                margin-bottom: 1.5rem;
-            }
+            
         `
     ];
 
@@ -31,6 +31,7 @@ export class EitCompanies extends LitElement {
         this.elajaxget = this.shadowRoot.getElementById('elajaxget');
         this.elajaxpost = this.shadowRoot.getElementById('elajaxpost');
         this.elajaxget.generateRequest();
+        this.eldelete = this.shadowRoot.getElementById('eldelete');
     }
 
     render() {
@@ -43,48 +44,40 @@ export class EitCompanies extends LitElement {
                 @ajax-success=${this.ajaxSuccessGet}
                 @ajax-error=${this.ajaxError}
             ></dw-ajax>
-            <dw-ajax
-                id="elajaxpost"
-                url="/api/companies"
-                method="post"
-                @ajax-success=${this.ajaxSuccessPost}
-                @ajax-error=${this.ajaxError}
-            ></dw-ajax>
-
-            <section>
-                <dile-input label="Nombre" name="name" id="name"></dile-input>
-                <dile-input label="Cif" name="vat_number" id="vat_number"></dile-input>
-                <dile-input label="Dirección" name="address" id="address"></dile-input>
-                <button type="button" @click=${this.addCompany}>Crear</button>
-            </section>
+            
+            <eit-company-insert
+                @eit-company-insert-success=${this.ajaxSuccess}
+                @eit-company-insert-error=${this.ajaxError}
+            ></eit-company-insert>
 
             <section>
                 ${this.companies.map(company => html`
                     <eit-company-element 
                         .company=${company}
                         @edit-company=${this.editCompany}
+                        @eit-company-element-delete=${this.deleteCompany}
                     ></eit-company-element>
                 `)}
             </section>
                 
-            <eit-company-edit></eit-company-edit>
+            <eit-company-edit
+                @ajax-success=${this.ajaxSuccess}
+                @ajax-error=${this.ajaxError}
+            ></eit-company-edit>
+
+            <eit-company-delete
+                id="eldelete"
+                endpoint="/api/companies"
+                resourceName="empresa"
+                @ajax-success=${this.ajaxSuccess}
+                @ajax-error=${this.ajaxError}
+            ></eit-company-delete>
         `;
     }
 
-    addCompany() {
-        const name = this.shadowRoot.getElementById('name').value;
-        const vat_number = this.shadowRoot.getElementById('vat_number').value;
-        const address = this.shadowRoot.getElementById('address').value;
-        this.elajaxpost.data = {
-            name,
-            vat_number,
-            address
-        }
-        this.elajaxpost.generateRequest();
-    }
+    
 
-    ajaxSuccessPost(e) {
-        console.log('successs post!!!', e.detail);
+    ajaxSuccess(e) {
         this.showFeedbackSuccess(e.detail);
         this.elajaxget.generateRequest();
     }
@@ -115,7 +108,13 @@ export class EitCompanies extends LitElement {
     }
 
     editCompany(e) {
+        console.log(e.detail);
         this.shadowRoot.querySelector('eit-company-edit').edit(e.detail);
+    }
+
+    deleteCompany(e) {
+        console.log('me estan pidiendo borrar', e.detail);
+        this.eldelete.delete(e.detail.id);
     }
 }
 customElements.define('eit-companies', EitCompanies);

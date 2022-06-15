@@ -20,3 +20,5 @@ Route::get('/', function () {
 
 Route::get('/api/companies', [CompanyController::class, 'getAll']);
 Route::post('/api/companies', [CompanyController::class, 'store']);
+Route::put('/api/companies/{id}', [CompanyController::class, 'update']);
+Route::delete('/api/companies/{id}', [CompanyController::class, 'delete']);

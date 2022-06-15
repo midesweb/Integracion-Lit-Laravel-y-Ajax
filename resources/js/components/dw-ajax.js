@@ -84,6 +84,8 @@ export class DwAjax extends LitElement {
         //console.log('ajax error', msg);
         this.dispatchEvent(
             new CustomEvent("ajax-error", {
+                bubbles: true,
+                composed: true,
                 detail: msg,
             })
         );
@@ -93,6 +95,8 @@ export class DwAjax extends LitElement {
         //console.log('ajax error', msg);
         this.dispatchEvent(
             new CustomEvent("ajax-success", {
+                bubbles: true,
+                composed: true,
                 detail: data,
             })
         );
